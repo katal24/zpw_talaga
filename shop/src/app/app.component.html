@@ -1,0 +1,16 @@
+<header class="header-6">
+    <div class="header-nav">
+        <div class="title navbar-brand" [routerLink]="['/dashboard']">Sklep sportowy</div>
+    </div>
+    <div class="header-actions pointer">
+        <div class="pointer"> <span class="navbar-brand pull-right pointer " [class.several-bikes]="iloscProductow<1">Koszyk: {{basketService.iloscProductow}} produkt(ów), {{basketService.sumOfPrice | currency:'USD':true:'1.2-2'}} </span></div>
+        <div class="title navbar-brand" [routerLink]="['/dashboard']">{{this.userService.user.username}}</div>
+        <button class="btn btn-default" [routerLink]="['/basket']">Koszyk</button>
+        <button *ngIf="!userService.isLogged" class="btn btn-default" [routerLink]="['/authentication']">Zaloguj</button>
+        <button *ngIf="!userService.isLogged" class="btn btn-default" [routerLink]="['/register']">Zarejestruj się</button>
+        <button *ngIf="userService.isLoggedAsAdmin" class="btn btn-default" [routerLink]="['/admin-panel']">Admin panel</button>
+        <button *ngIf="userService.isLogged" class="btn btn-default" (click)="logout()">Wyloguj</button>
+        <button *ngIf="userService.isLogged && !userService.isLoggedAsAdmin" class="btn btn-default" [routerLink]="['/history']">Historia zamówień</button>
+    </div>
+</header>
+<router-outlet></router-outlet>

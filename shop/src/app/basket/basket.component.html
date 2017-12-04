@@ -1,0 +1,41 @@
+<div class="container text-center">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 contents text-center">
+        <h2>Twój koszyk</h2>
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Ilość</th>
+                    <th>Produkt</th>
+                    <th>Cena</th>
+                    <th>Promocja</th>
+                    <th>Cena promocyjna</th>
+                    <th>Wartość</th>
+                    <th>Akcja</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of basketService.orderedProducts">
+                    <td>{{item.amount}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price | currency:'USD':true:'1.2-2'}}</td>
+                    <td class="red">{{item.promotion? item.promotion : 0}}%</td>
+                    <td>{{item.price*(100-(item.promotion? item.promotion : 0))/100 | currency:'USD':true:'1.2-2'}}</td>
+                    <td>{{item.price*(100-(item.promotion? item.promotion : 0))/100 * item.amount | currency:'USD':true:'1.2-2'}}</td>
+                    <button class="btn btn-danger" (click)="basketService.removeProductFromBasket(item)">Usuń</button>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Wartość całkowita:</td>
+                    <td>{{basketService.sumOfPrice | currency:'USD':true:'1.2-2'}}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-default" [routerLink]="['/dashboard']">Kontynuuj zakupy</button>
+        <button class="btn btn-default" [routerLink]="['/order']">Złóż zamówienie</button>
+    </div>
+</div>

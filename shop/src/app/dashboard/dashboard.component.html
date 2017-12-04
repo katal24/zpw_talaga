@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="main-container" *ngIf="productService.products">
+        <div class="content-container">
+            <div class="col-md-10 col-sm-10 col-xs-12 bigwidth">
+                <div *ngFor="let product of productService.products | matchesCategory:selectedCategories 
+                        | matchesName:searchText
+                        | matchesPrice:filteringPrice:filterPrice.min:filterPrice.max
+                        | paginate: { itemsPerPage: 3, currentPage: page }">
+                    <product [product]=product (signaledOrder)="basketService.orderProduct($event)" (unOrder)="basketService.unorderProduct($event)"></product>
+                </div>
+                <pagination-controls (pageChange)="page=$event"></pagination-controls>
+            </div>
+            <nav class="sidenav">
+                <section class="sidenav-content">
+                    <section class="nav-group">
+                        <label for="tabexample1">Szukaj</label>
+                        <ul class="nav-list">
+                            <input type="text" [(ngModel)]="searchText" placeholder="nazwa" size="15">
+                        </ul>
+                    </section>
+                    <section class="nav-group">
+                        <input id="tabexample2" type="checkbox">
+                        <label for="tabexample2">Filtruj wg kategorii</label>
+                        <ul class="nav-list">
+                            <li>
+                                <a class="nav-link">
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="categoryA" (change)="selectAll($event)" [checked]="allChecked()">
+                                        <label for=categoryA>Wszystkie</label>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav-list" *ngFor="let category of categories ">
+                            <li>
+                                <a class="nav-link">
+                                    <div class="checkbox">
+                                        <input type="checkbox" (change)="setCategory($event, category)" id="category" [checked]="selectedCategories.includes(category)">
+                                        <label for="category">{{category}}</label>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="nav-group">
+                        <div class="checkbox">
+                            <input type="checkbox" [(ngModel)]="filteringPrice" (checked)="filteringPrice" (change)="filteringPrice != filteringPrice" id="price">
+                            <label for="price">Określ cenę</label>
+                        </div>
+                        <ul class="nav-list">
+                            <input *ngIf="filteringPrice" type="number" class="form-control small-width" name="minPrice" [(ngModel)]="filterPrice.min">
+                            <input *ngIf="filteringPrice" type="number" class="form-control small-width" name="maxPrice" [(ngModel)]="filterPrice.max">
+                        </ul>
+                    </section>
+
+                </section>
+            </nav>
+        </div>
+    </div>
+</div>

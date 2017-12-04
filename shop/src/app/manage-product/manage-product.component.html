@@ -1,0 +1,62 @@
+<div class="container text-center">
+    <div class="col-md-2 col-sm-2 col-xs-0"></div>
+    <div class="col-md-8 col-sm-8 col-xs-12 text-center">
+        <span *ngIf="error">{{error}}</span>
+        <div *ngIf="product">
+            <h2>Produkt</h2>
+            <table class="table table-vertical">
+                <tbody>
+                    <tr>
+                        <th class="text-right ">Produkt</th>
+                        <td><input type="text " class="form-control username " [(ngModel)]="product.name " placeholder="Kross " /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right ">Kategoria</th>
+                        <td><input type="text " class="form-control " [(ngModel)]="product.category " placeholder="rower " /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right ">Opis</th>
+                        <td><input type="text " class="form-control " [(ngModel)]="product.description " placeholder="Super! " /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right ">Ilość</th>
+                        <td><input type="number " class="form-control " [(ngModel)]="product.number" placeholder="10" /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right ">Cena</th>
+                        <td><input type="text " class="form-control " [(ngModel)]="product.price " placeholder="2.99 " /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right">Promocja</th>
+                        <td><input type="range" min="0" max="100" class="form-control " [(ngModel)]="product.promotion " placeholder="15%" />{{product.promotion}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right ">Zdjęcia</th>
+                        <td>
+                            <table class="table table-hover text-left">
+                                <tbody>
+                                    <tr *ngFor="let image of product.images">
+                                        <td><a href="http://localhost:5000/{{image}}">Link</a> </td>
+                                        <button class="btn btn-danger" (click)="removeImage(image)">Usuń</button>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <image-upload url="{{url}}" buttonCaption="Select Images" (removed)="onRemoved($event)" (uploadFinished)="onUploadFinished($event)" max="3">
+            </image-upload>
+            <div *ngIf="product && id!=0 ">
+                <button class="btn btn-default " (click)="editProduct() ">Zapisz</button>
+                <button class="btn btn-default " (click)="goBack() ">Powrót</button>
+            </div>
+            <div *ngIf="id==0 ">
+                <button class="btn btn-default " (click)="addProduct() ">Utwórz</button>
+                <button class="btn btn-default " (click)="goBack() ">Powrót</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-0 "></div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container text-center">
+    <div class="col-md-1 col-sm-1 col-xs-0"></div>
+    <div class="col-md-10 col-sm-10 col-xs-12 text-center">
+        <a routerLink="../product/0">Nowy produkt</a>
+        <h2>Lista produktów</h2>
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Kategoria</th>
+                    <th>Opis</th>
+                    <th>Ilość</th>
+                    <th>Cena</th>
+                    <th>Promocja</th>
+                    <th>Cena promocyjna</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of productService.products | paginate: { itemsPerPage: 5, currentPage: page }; let i=index ">
+                    <td>{{item.name}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.description}}</td>
+                    <tD>{{item.number}}</tD>
+                    <td>{{item.price | currency:'USD':true:'1.2-2'}}</td>
+                    <td class="red">{{item.promotion? item.promotion : 0}}%</td>
+                    <td>{{item.price*(100-(item.promotion? item.promotion : 0))/100 | currency:'USD':true:'1.2-2'}}</td>
+                    <td>
+                        <!-- <button class="btn btn-default" [routerLink]="['../product/{{item.id}}']">Edutuj</button> -->
+                        <a routerLink="../product/{{item.id}}">Edutuj</a>
+
+                        <button class="btn btn-danger" (click)="deleteProduct(item)">Usuń</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="page=$event "></pagination-controls>
+
+        <div class="col-md-8 col-sm-10 col-xs-12 " *ngIf="selectedId>= 0">
+            <h3>Szczegóły zamówienia</h3>
+
+        </div>
+    </div>
+    <div class="col-md-1 col-sm-1 col-xs-0"></div>
+</div>

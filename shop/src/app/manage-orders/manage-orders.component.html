@@ -1,0 +1,69 @@
+<div class="container text-center">
+    <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+        <h2>Zamówienia złożone</h2>
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Imię i nazwisko</th>
+                    <th>Wartość</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orders | matchesFinished:false; let i = index ">
+                    <td>{{item.name}}</td>
+                    <td>{{item.price | currency:'USD':true:'1.2-2'}}</td>
+                    <td><button class="btn btn-danger" (click)="showDetails(item.products)">Szczegóły</button></td>
+                    <td><button class="btn btn-success" (click)="finishOrder(item)">Zrealizuj</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+        <h2>Zamówienia zrealizowane</h2>
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Imię i nazwisko</th>
+                    <th>Wartość</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orders | matchesFinished:true; let i = index">
+                    <td>{{item.name}}</td>
+                    <td>{{item.price | currency:'USD':true:'1.2-2'}}</td>
+                    <td><button class="btn btn-primary" (click)="showDetails(item.products)">Szczegóły</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteOrder(item)">Usuń</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-12 text-center"></div>
+    <div class="col-md-8 col-sm-8 col-xs-12 " *ngIf="selectedOrder">
+        <h3>Szczegóły zamówienia</h3>
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Ilość</th>
+                    <th>cena</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of selectedOrder">
+                    <td>{{item.name}}</td>
+                    <td>{{item.amount}}</td>
+                    <td *ngIf="!item.promotion">{{item.price | currency:'USD':true:'1.2-2'}}</td>
+                    <td *ngIf="item.promotion">{{item.price*(100-(item.promotion? item.promotion : 0))/100 | currency:'USD':true:'1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2 col-sm-2 col-xs-12 text-center"></div>
+</div>

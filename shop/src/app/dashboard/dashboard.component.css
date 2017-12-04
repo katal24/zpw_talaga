@@ -1,0 +1,7 @@
+.bigwidth {
+    min-width: 500px;
+}
+
+.small-width {
+    max-width: 40px;
+}

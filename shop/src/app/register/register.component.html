@@ -1,0 +1,25 @@
+<div class="container text-center">
+    <h2>Utwórz konto</h2>
+    <p *ngIf="!error">Aby za darmo korzystać z aplikacji</p>
+    <p class="red" *ngIf="error">Wprowadzone dane nie są poprawne</p>
+    <p class="green" *ngIf="message!=''">Konto zostało utworzone. Zaloguj się</p>
+
+
+    <div class="col-md-4 col-sm-3 col-xs-1"></div>
+    <div class="col-md-4 col-sm-6 col-xs-10">
+        <form class="form-group center">
+            <div>
+                <h3>username</h3>
+                <input type="text" class="form-control" placeholder="user" [(ngModel)]="user.username" name="username" (change)="checkUsername()">
+                <span class="help-block" *ngIf="!user.username && submitted">To pole jest wymagane</span>
+            </div>
+            <div>
+                <h3>password</h3>
+                <input type="password" class="form-control" placeholder="sekretne hasło" [(ngModel)]="user.password" name="password" (change)="checkPassword()">
+                <span class="help-block " *ngIf="!user.password && submitted">To pole jest wymagane</span>
+            </div>
+            <button type="submit " class="btn btn-default" (click)="sendForm()">Utwórz konto</button>
+        </form>
+    </div>
+    <div class="col-md-4 col-sm-3 col-xs-1"></div>
+</div>

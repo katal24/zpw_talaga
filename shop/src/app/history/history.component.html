@@ -1,0 +1,43 @@
+<div class="container text-center contents">
+    <div class="col-md-6 col-sm-6 col-xs-12 text-center">
+        <h2>Zamówienia</h2>
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Odbiorca</th>
+                    <th>Wartość</th>
+                    <th>Zrealizowane</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orders; let i=index">
+                    <td>{{item.name}}</td>
+                    <td>{{item.price | currency:'USD':true:'1.2-2'}}</td>
+                    <td>{{item.isFinished? 'TAK' : 'NIE'}}</td>
+                    <td><button class="btn btn-danger" (click)="showDetails(i)">Szczegóły</button>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6 col-sm-6 col-xs-12 " *ngIf="selectedId >= 0">
+        <h3>Szczegóły zamówienia</h3>
+        <table class="table table-hover text-left">
+            <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Ilość</th>
+                    <th>cena</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orders[selectedId].products">
+                    <td>{{item.name}}</td>
+                    <td>{{item.amount}}</td>
+                    <td>{{item.price | currency:'USD':true:'1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

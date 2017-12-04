@@ -1,0 +1,24 @@
+<div class="container margin">
+    <div class="row center">
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <h3>Produkty objęte promocją</h3> <br/>
+            <ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" [options]="myOptions" [texts]="myTexts">
+            </ss-multiselect-dropdown>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group left">
+                <h3>Czas trwania promocji [s]</h3>
+                <input type="number" class="form-control" placeholder="600" [(ngModel)]="time" name="time">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="form-group left">
+                <h3>Wielkość obniżki</h3>
+                <input type="number" class="form-control" placeholder="20" [(ngModel)]="percent" name="percent">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="savePromotion()">Zapisz promocję</button>
+    </div>
+    <router-outlet></router-outlet>
+
+</div>
